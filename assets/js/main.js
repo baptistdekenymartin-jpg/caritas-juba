@@ -1,4 +1,4 @@
-﻿console.log('Caritas Juba v3-integrated-v2 loaded');
+console.log('Caritas Juba v3-integrated-v2 loaded');
 
 // === Active pill highlight on scroll ===
 (function(){
@@ -66,6 +66,15 @@
   const backdrop = header.querySelector('.nav-backdrop');
   const closeBtn = header.querySelector('.nav-close');
   const navLinks = Array.from(header.querySelectorAll('.nav-link'));
+
+  const syncNavState = () => {
+    if (toggle) toggle.setAttribute('aria-expanded', String(document.body.classList.contains('nav-open')));
+  };
+
+  if (toggle) toggle.dataset.navToggle = 'true';
+  if (closeBtn) closeBtn.dataset.navClose = 'true';
+  if (backdrop) backdrop.dataset.navClose = 'true';
+
   if (toggle) {
     toggle.dataset.open = toggle.dataset.open || 'false';
     if (!toggle.hasAttribute('aria-expanded')) toggle.setAttribute('aria-expanded','false');
@@ -87,7 +96,8 @@
     }
     const focusable = drawer ? Array.from(drawer.querySelectorAll(focusableSelectors)) : [];
     if (focusable.length) focusable[0].focus();
-    document.body.style.overflow = 'hidden';
+    document.body.classList.add('nav-open');
+    syncNavState();
   };
 
   const closeNav = () => {
@@ -100,7 +110,8 @@
       delete backdrop.dataset.open;
       backdrop.hidden = true;
     }
-    document.body.style.overflow = '';
+    document.body.classList.remove('nav-open');
+    syncNavState();
     if (lastFocused) lastFocused.focus();
   };
 
@@ -163,6 +174,9 @@
   } else {
     mq.addListener(handleMediaChange);
   }
+
+  // Mobile nav accessibility + scroll lock (synchronize state for legacy triggers)
+  syncNavState();
 })();
 
 // === Header scroll animation toggle ===
@@ -175,7 +189,8 @@
     header.classList.toggle('is-scrolled', shouldElevate);
   };
   onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.removeEventListener?.('scroll', window._headerShrinkHandler || (() => {}));
+  window._headerShrinkHandler = onScroll;
 })();
 
 // === Program cards "See more" toggle ===
@@ -216,7 +231,7 @@
     if (toggle) toggle.setAttribute('aria-expanded', 'false');
     drawer.setAttribute('aria-hidden', 'true');
     if (backdrop) backdrop.setAttribute('data-open', 'false');
-    document.body.style.overflow = '';
+    document.body.classList.remove('nav-open');
   };
 
   // Make nav links work for both hash (#section) and normal pages
