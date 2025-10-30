@@ -22,6 +22,7 @@
 html,body{margin:0;padding:0}
 body{font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;color:var(--ink);background:var(--bg-soft);line-height:1.6}
 img{max-width:100%;height:auto;display:block}
+[class*="grid"]>*{min-width:0}
 
 a{color:var(--blue);text-decoration:none;transition:color .15s ease}
 a:hover{text-decoration:underline}
@@ -404,7 +405,7 @@ input:focus,textarea:focus{outline:none;border-color:var(--brand);box-shadow:0 0
 }
 /* About banner with controllable focal point */
 .about-hero{
-  --fp: 22%; /* focal point from top; tweak 10ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã¢â‚¬Å“35% to show more face */
+  --fp: 22%; /* focal point from top; tweak 10-35% to show more face */
   background: linear-gradient(180deg, rgba(0,0,0,.85), rgba(128,0,0,.85));
   min-height: 46vh;             /* taller so the face isn't cropped out */
   position: relative;
@@ -1068,7 +1069,8 @@ html{scroll-behavior:smooth}
 .footer-contact a{color:#dbe3ff;}
 .footer-contact a:hover{color:var(--brand-200);}
 .footer-programs li{color:#eef3ff;}
-`n.footer-legal{
+
+.footer-legal{
   border-top:1px solid rgba(255,255,255,.1);
   background:#0b152d;
 }
@@ -1229,7 +1231,7 @@ main{
 .nav-backdrop { z-index: 998 !important; }
 .nav-drawer   { z-index: 999 !important; }
 
-/* Don�t blur the drawer content */
+/* Don't blur the drawer content */
 .nav-drawer {
   filter: none !important;
   -webkit-backdrop-filter: none !important;

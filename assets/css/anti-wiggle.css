@@ -1,0 +1,19 @@
+html{scrollbar-gutter:stable both-edges;overflow-y:scroll}
+html,body{max-width:100%;overflow-x:hidden}
+*,*::before,*::after{box-sizing:border-box}
+img,video,iframe{display:block;max-width:100%;height:auto}
+/* Avoid 100vw traps */
+.hero,.banner,.container-full,[data-fullwidth="true"]{width:100%!important}
+/* Flex/grid children must not force overflow */
+.row,.flex,.grid{min-width:0}
+.row>*,.flex>*,.grid>*{min-width:0}
+/* Long text/URLs */
+p,li,.text,.content{overflow-wrap:anywhere;word-break:break-word}
+/* Tables/code that might overflow */
+table,.code-block{max-width:100%;display:block;overflow-x:auto}
+/* Footer + back-to-top button */
+footer,.site-footer{max-width:100%;overflow-x:clip}
+.back-to-top,.scroll-top{position:fixed;inset-inline-end:16px;inset-block-end:16px;transform:none}
+/* Anchor jump stability if header is sticky */
+:root{--header-h:72px}
+[id]{scroll-margin-top:var(--header-h)}
